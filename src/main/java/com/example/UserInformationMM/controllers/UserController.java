@@ -1,14 +1,13 @@
 package com.example.UserInformationMM.controllers;
 
-import com.example.UserInformationMM.model.User;
 import com.example.UserInformationMM.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -23,14 +22,21 @@ public class UserController {
         try {
             user = userService.getUser(firstname, lastname);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         return user;
     }
 
-
-    @RequestMapping("/hello")
-    public String hello() {
-        return "hello";
+    @RequestMapping("/userListBetweenDateRange")
+    public List<String> getuserListBetweenDateRange(@RequestParam String startDate,
+                          @RequestParam String endDate) {
+        List<String> users = new ArrayList<>();
+        try {
+            users = userService.getuserListBetweenDateRange(startDate, endDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
     }
+
 }
