@@ -112,4 +112,48 @@ public class UserService {
         }
         return users;
     }
+
+    public List<String> getuserListPerProfession(String professions) throws IOException {
+
+        String id = "";
+        String fname = "";
+        String lname = "";
+        String email = "";
+        String profession = "";
+        String dateCreated = "";
+        String country = "";
+        String city = "";
+
+        List<String> users = new ArrayList<>();
+
+        try{
+            Reader reader = new FileReader("src/main/resources/UserInformation.csv");
+
+            CSVFormat csvFormat = CSVFormat.DEFAULT.builder()
+                    .setHeader(HEADERS)
+                    .setSkipHeaderRecord(true)
+                    .build();
+
+            Iterable<CSVRecord> records = csvFormat.parse(reader);
+
+            for (CSVRecord record : records){
+                id = record.get("id");
+                fname = record.get("firstname");
+                lname = record.get("lastname");
+                email = record.get("email");
+                profession = record.get("profession");
+                dateCreated = record.get("dateCreated");
+                country = record.get("country");
+                city = record.get("city");
+
+                if(Objects.equals(record.get(4), professions)){
+                    users.add(id + " " + fname + " " + lname + " " + email + " " + profession + " " + dateCreated + " " + country + " " + city);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
 }

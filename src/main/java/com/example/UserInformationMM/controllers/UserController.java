@@ -39,4 +39,15 @@ public class UserController {
         return users;
     }
 
+    @RequestMapping("/userListPerProfession")
+    public List<String> getuserListPerProfession(@RequestParam String profession) {
+        List<String> users = new ArrayList<>();
+        try {
+            users = userService.getuserListPerProfession(profession);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
 }
