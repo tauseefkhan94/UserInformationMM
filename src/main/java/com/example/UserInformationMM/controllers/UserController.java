@@ -50,4 +50,15 @@ public class UserController {
         return users;
     }
 
+    @RequestMapping("/userListPerCity")
+    public List<String> getuserListPerCity(@RequestParam String city) {
+        List<String> users = new ArrayList<>();
+        try {
+            users = userService.getuserListPerCity(city);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return users;
+    }
+
 }
